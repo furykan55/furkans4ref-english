@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="cupcake">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furkan İle İngilizce Öğrenme</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.19/dist/full.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-base-200 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <div class="navbar bg-base-100 rounded-box shadow-lg mb-6">
+            <div class="flex-1">
+                <a class="btn btn-ghost text-2xl">🎓 Furkan İle İngilizce Öğrenme</a>
+            </div>
+            <div class="flex-none gap-2">
+                <div class="dropdown dropdown-end">
+                    <label tabindex="0" class="btn btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                        </svg>
+                        Tema
+                    </label>
+                    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+                        <li><a onclick="changeTheme('cupcake')">🧁 Cupcake</a></li>
+                        <li><a onclick="changeTheme('dark')">🌙 Dark</a></li>
+                        <li><a onclick="changeTheme('forest')">🌲 Forest</a></li>
+                        <li><a onclick="changeTheme('aqua')">💧 Aqua</a></li>
+                        <li><a onclick="changeTheme('synthwave')">🌆 Synthwave</a></li>
+                        <li><a onclick="changeTheme('valentine')">💝 Valentine</a></li>
+                    </ul>
+                </div>
+                <button class="btn btn-circle btn-ghost" onclick="showSettings()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-1 space-y-6">
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body">
+                        <h2 class="card-title text-center justify-center mb-4">📊 İstatistikler</h2>
+                        <div class="stats stats-vertical shadow">
+                            <div class="stat">
+                                <div class="stat-figure text-success">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div class="stat-title">Doğru</div>
+                                <div class="stat-value text-success" id="correct">0</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-figure text-error">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </div>
+                                <div class="stat-title">Yanlış</div>
+                                <div class="stat-value text-error" id="wrong">0</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-figure text-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-8 h-8 stroke-current">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <div class="stat-title">Skor</div>
+                                <div class="stat-value text-primary" id="score">0</div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="text-sm opacity-70 mb-1">Başarı Oranı</div>
+                            <progress class="progress progress-success w-full" value="0" max="100" id="successRate"></progress>
+                            <div class="text-center mt-1 font-bold" id="successPercent">0%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body">
+                        <h2 class="card-title">⚙️ Ayarlar</h2>
+                        
+                        <div class="form-control">
+                            <label class="label cursor-pointer">
+                                <span class="label-text">Oyun Modu</span>
+                            </label>
+                            <select class="select select-bordered w-full" id="gameMode" onchange="changeMo()">
+                                <option value="tr-en">Türkçe → İngilizce</option>
+                                <option value="en-tr">İngilizce → Türkçe</option>
+                                <option value="mixed">Karışık</option>
+                            </select>
+                        </div>
+
+                        <div class="form-control mt-4">
+                            <label class="label cursor-pointer">
+                                <span class="label-text">Zorluk</span>
+                            </label>
+                            <select class="select select-bordered w-full" id="difficulty" onchange="changeDifficulty()">
+                                <option value="easy">Kolay (4 seçenek)</option>
+                                <option value="medium">Orta (6 seçenek)</option>
+                                <option value="hard">Zor (8 seçenek)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-control mt-4">
+                            <label class="label cursor-pointer">
+                                <span class="label-text">Kategori</span>
+                            </label>
+                            <select class="select select-bordered w-full" id="category" onchange="changeCategory()">
+                                <option value="all">Tümü</option>
+                                <optgroup label="Seviye Listeleri">
+                                    <option value="A1">A1 Seviyesi (Tüm Liste)</option>
+                                </optgroup>
+                                <optgroup label="Tematik Listeler">
+                                    <option value="basic">Temel Kelimeler</option>
+                                    <option value="animals">Hayvanlar</option>
+                                    <option value="food">Yiyecek & İçecek</option>
+                                    <option value="colors">Renkler</option>
+                                    <option value="numbers">Sayılar</option>
+                                    <option value="family">Aile</option>
+                                    <option value="body">Vücut</option>
+                                    <option value="nature">Doğa</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-control mt-4">
+                            <label class="label cursor-pointer">
+                                <span class="label-text">Ses Efektleri</span>
+                                <input type="checkbox" class="toggle toggle-success" id="soundToggle" checked>
+                            </label>
+                        </div>
+
+                        <button class="btn btn-error btn-block mt-4" onclick="resetStats()">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            Sıfırla
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card bg-gradient-to-r from-orange-500 to-yellow-500 text-white shadow-xl">
+                    <div class="card-body items-center text-center">
+                        <h2 class="card-title">🔥 Seri</h2>
+                        <div class="text-5xl font-bold" id="streak">0</div>
+                        <p>Ardışık Doğru</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2">
+                <div class="card bg-base-100 shadow-xl">
+                    <div class="card-body">
+                        <div class="mb-6">
+                            <div class="flex justify-between text-sm mb-2">
+                                <span>Soru <span id="currentQ">1</span> / <span id="totalQ">10</span></span>
+                                <span>Süre: <span id="timer">30</span>s</span>
+                            </div>
+                            <progress class="progress progress-primary w-full" value="10" max="100" id="questionProgress"></progress>
+                        </div>
+
+                        <div class="text-center mb-8">
+                            <div class="badge badge-outline badge-lg mb-4" id="modeDisplay">Türkçe → İngilizce</div>
+                            <h2 class="text-xl font-semibold mb-4" id="questionLabel">Aşağıdaki kelimenin İngilizce karşılığını seçin:</h2>
+                            <div class="bg-gradient-to-r from-primary to-secondary text-white p-8 rounded-box shadow-lg">
+                                <div class="text-5xl font-bold" id="questionWord">-</div>
+                            </div>
+                        </div>
+
+                        <div id="optionsContainer" class="grid grid-cols-2 gap-4 mb-6">
+                            </div>
+
+                        <div id="feedback" class="hidden mb-6">
+                            </div>
+
+                        <div class="flex gap-4 justify-center">
+                            <button class="btn btn-primary btn-wide" id="nextBtn" onclick="nextQuestion()">
+                                Sonraki Soru
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                            </button>
+                            <button class="btn btn-outline" onclick="skipQuestion()">
+                                Geç
+                            </button>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button class="btn btn-sm btn-ghost" id="hintBtn" onclick="showHint()">
+                                💡 İpucu (-5 puan)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="toast toast-top toast-end" id="achievementToast" style="display: none;">
+                    <div class="alert alert-success">
+                        <span id="achievementText">🏆 Başarı Kazanıldı!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <dialog id="settingsModal" class="modal">
+        <div class="modal-box">
+            <h3 class="font-bold text-lg">📚 Kelime Listesi</h3>
+            <p class="py-4">Toplam <span id="totalWords">0</span> kelime yüklü</p>
+            <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn">Kapat</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+    <script>
+        // ⚡️ Verimlilik: AudioContext'i bir kez oluştur
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    
+        // GÜNCELLENMİŞ KELİME VERİTABANI
+        const wordDatabase = {
+            basic: [
+                { turkish: "elma", english: "apple" },
+                { turkish: "kitap", english: "book" },
+                { turkish: "araba", english: "car" },
+                { turkish: "ev", english: "house" },
+                { turkish: "su", english: "water" },
+                { turkish: "masa", english: "table" },
+                { turkish: "sandalye", english: "chair" },
+                { turkish: "kalem", english: "pen" },
+                { turkish: "defter", english: "notebook" },
+                { turkish: "kapı", english: "door" },
+                { turkish: "pencere", english: "window" },
+                { turkish: "telefon", english: "phone" },
+                { turkish: "bilgisayar", english: "computer" },
+                { turkish: "okul", english: "school" },
+                { turkish: "çanta", english: "bag" }
+            ],
+            animals: [
+                { turkish: "kedi", english: "cat" },
+                { turkish: "köpek", english: "dog" },
+                { turkish: "kuş", english: "bird" },
+                { turkish: "balık", english: "fish" },
+                { turkish: "fil", english: "elephant" },
+                { turkish: "aslan", english: "lion" },
+                { turkish: "kaplan", english: "tiger" },
+                { turkish: "ayı", english: "bear" },
+                { turkish: "tavşan", english: "rabbit" },
+                { turkish: "fare", english: "mouse" },
+                { turkish: "at", english: "horse" },
+                { turkish: "inek", english: "cow" },
+                { turkish: "koyun", english: "sheep" },
+                { turkish: "maymun", english: "monkey" },
+                { turkish: "yılan", english: "snake" }
+            ],
+            food: [
+                { turkish: "ekmek", english: "bread" },
+                { turkish: "süt", english: "milk" },
+                { turkish: "yumurta", english: "egg" },
+                { turkish: "peynir", english: "cheese" },
+                { turkish: "et", english: "meat" },
+                { turkish: "tavuk", english: "chicken" },
+                { turkish: "sebze", english: "vegetable" },
+                { turkish: "meyve", english: "fruit" },
+                { turkish: "çay", english: "tea" },
+                { turkish: "kahve", english: "coffee" },
+                { turkish: "şeker", english: "sugar" },
+                { turkish: "tuz", english: "salt" },
+                { turkish: "pirinç", english: "rice" },
+                { turkish: "makarna", english: "pasta" },
+                { turkish: "salata", english: "salad" }
+            ],
+            colors: [
+                { turkish: "kırmızı", english: "red" },
+                { turkish: "mavi", english: "blue" },
+                { turkish: "yeşil", english: "green" },
+                { turkish: "sarı", english: "yellow" },
+                { turkish: "siyah", english: "black" },
+                { turkish: "beyaz", english: "white" },
+                { turkish: "turuncu", english: "orange" },
+                { turkish: "mor", english: "purple" },
+                { turkish: "pembe", english: "pink" },
+                { turkish: "kahverengi", english: "brown" },
+                { turkish: "gri", english: "gray" }
+            ],
+            numbers: [
+                { turkish: "bir", english: "one" },
+                { turkish: "iki", english: "two" },
+                { turkish: "üç", english: "three" },
+                { turkish: "dört", english: "four" },
+                { turkish: "beş", english: "five" },
+                { turkish: "altı", english: "six" },
+                { turkish: "yedi", english: "seven" },
+                { turkish: "sekiz", english: "eight" },
+                { turkish: "dokuz", english: "nine" },
+                { turkish: "on", english: "ten" }
+            ],
+            family: [
+                { turkish: "anne", english: "mother" },
+                { turkish: "baba", english: "father" },
+                { turkish: "kardeş", english: "sibling" },
+                { turkish: "abla", english: "older sister" },
+                { turkish: "ağabey", english: "older brother" },
+                { turkish: "büyükanne", english: "grandmother" },
+                { turkish: "büyükbaba", english: "grandfather" },
+                { turkish: "amca", english: "uncle" },
+                { turkish: "teyze", english: "aunt" },
+                { turkish: "kuzen", english: "cousin" }
+            ],
+            body: [
+                { turkish: "baş", english: "head" },
+                { turkish: "göz", english: "eye" },
+                { turkish: "kulak", english: "ear" },
+                { turkish: "burun", english: "nose" },
+                { turkish: "ağız", english: "mouth" },
+                { turkish: "el", english: "hand" },
+                { turkish: "ayak", english: "foot" },
+                { turkish: "bacak", english: "leg" },
+                { turkish: "kol", english: "arm" },
+                { turkish: "parmak", english: "finger" }
+            ],
+            nature: [
+                { turkish: "güneş", english: "sun" },
+                { turkish: "ay", english: "moon" },
+                { turkish: "yıldız", english: "star" },
+                { turkish: "ağaç", english: "tree" },
+                { turkish: "çiçek", english: "flower" },
+                { turkish: "göl", english: "lake" },
+                { turkish: "deniz", english: "sea" },
+                { turkish: "dağ", english: "mountain" },
+                { turkish: "nehir", english: "river" },
+                { turkish: "bulut", english: "cloud" },
+                { turkish: "yağmur", english: "rain" },
+                { turkish: "kar", english: "snow" },
+                { turkish: "rüzgar", english: "wind" }
+            ],
+            // YENİ EKLENEN A1 KATEGORİSİ
+            A1: [
+                { english: "about", turkish: "yaklaşık" },
+                { english: "above", turkish: "yukarısında" },
+                { english: "across", turkish: "karşıya" },
+                { english: "action", turkish: "aksiyon" },
+                { english: "activity", turkish: "meşguliyet" },
+                { english: "actor", turkish: "erkek oyuncu" },
+                { english: "actress", turkish: "artist" },
+                { english: "add", turkish: "toplamak" },
+                { english: "address", turkish: "hitap etmek" },
+                { english: "adult", turkish: "yetişkin kişi" },
+                { english: "advice", turkish: "tavsiye" },
+                { english: "afraid", turkish: "ürkmüş" },
+                { english: "after", turkish: "sonra gelen" },
+                { english: "afternoon", turkish: "son kısım" },
+                { english: "again", turkish: "daha" },
+                { english: "age", turkish: "çağ" },
+                { english: "ago", turkish: "evvel" },
+                { english: "agree", turkish: "anlaşmak" },
+                { english: "air", turkish: "havalandırmak" },
+                { english: "airport", turkish: "havaalanı" },
+                { english: "all", turkish: "tüm" },
+                { english: "also", turkish: "yine" },
+                { english: "always", turkish: "her zaman" },
+                { english: "amazing", turkish: "şaşırtıcı" },
+                { english: "and", turkish: "ile" },
+                { english: "angry", turkish: "sinirli" },
+                { english: "animal", turkish: "hayvan" },
+                { english: "another", turkish: "başka" },
+                { english: "answer", turkish: "vermek" },
+                { english: "any", turkish: "bazı" },
+                { english: "anyone", turkish: "hiç kimse" },
+                { english: "anything", turkish: "hiçbir şey" },
+                { english: "apartment", turkish: "apartman katı" },
+                { english: "apple", turkish: "elma" },
+                { english: "April", turkish: "yılın dördüncü ayı" },
+                { english: "area", turkish: "saha" },
+                { english: "arm", turkish: "sarılmak" },
+                { english: "around", turkish: "çevrede" },
+                { english: "arrive", turkish: "gelip çatmak" },
+                { english: "art", turkish: "beceri" },
+                { english: "article", turkish: "(sözleşmede) madde" },
+                { english: "artist", turkish: "sanatçı" },
+                { english: "as", turkish: "dahi" },
+                { english: "ask", turkish: "soru sormak" },
+                { english: "at", turkish: "haliyle" },
+                { english: "August", turkish: "ağustos ayı" },
+                { english: "aunt", turkish: "yenge" },
+                { english: "autumn", turkish: "hazan" },
+                { english: "away", turkish: "uzak" },
+                { english: "baby", turkish: "şımartmak" },
+                { english: "back", turkish: "art" },
+                { english: "bad", turkish: "bozuk" },
+                { english: "bag", turkish: "torba" },
+                { english: "ball", turkish: "yumak" },
+                { english: "banana", turkish: "muz" },
+                { english: "band", turkish: "şerit" },
+                { english: "bank", turkish: "banka" },
+                { english: "bath", turkish: "banyo yapmak" },
+                { english: "bathroom", turkish: "banyo" },
+                { english: "be", turkish: "olmak" },
+                { english: "beach", turkish: "kumsal" },
+                { english: "beautiful", turkish: "tatlı" },
+                { english: "because", turkish: "çünkü" },
+                { english: "become", turkish: "olmak" },
+                { english: "bed", turkish: "yatak" },
+                { english: "bedroom", turkish: "yatak odası" },
+                { english: "beer", turkish: "bira" },
+                { english: "before", turkish: "evvel" },
+                { english: "begin", turkish: "başlamak" },
+                { english: "beginning", turkish: "ilk adım" },
+                { english: "behind", turkish: "arkaya" },
+                { english: "believe", turkish: "kanmak" },
+                { english: "below", turkish: "altta" },
+                { english: "best", turkish: "baskın çıkmak" },
+                { english: "better", turkish: "etmek" },
+                { english: "between", turkish: "ortada" },
+                { english: "bicycle", turkish: "gezmek" },
+                { english: "big", turkish: "kapı gibi" },
+                { english: "bike", turkish: "bisiklet sürmek" },
+                { english: "bill", turkish: "ilan etmek" },
+                { english: "bird", turkish: "kuş" },
+                { english: "birthday", turkish: "doğum günü" },
+                { english: "black", turkish: "siyah" },
+                { english: "blog", turkish: "internet kullanıcılarının kendi" },
+                { english: "blonde", turkish: "sarı" },
+                { english: "blue", turkish: "çarçur etmek" },
+                { english: "boat", turkish: "bot" },
+                { english: "body", turkish: "gövde" },
+                { english: "book", turkish: "deftere işlemek" },
+                { english: "boot", turkish: "bot" },
+                { english: "bored", turkish: "sıkılmış" },
+                { english: "boring", turkish: "sıkıcı" },
+                { english: "born", turkish: "doğmuş" },
+                { english: "both", turkish: "her ikisi (de)" },
+                { english: "bottle", turkish: "şişelemek" },
+                { english: "box", turkish: "kutu" },
+                { english: "boy", turkish: "oğlan" },
+                { english: "boyfriend", turkish: "erkek arkadaş" },
+                { english: "bread", turkish: "pane etmek" },
+                { english: "break", turkish: "bozmak" },
+                { english: "breakfast", turkish: "kahvaltı" },
+                { english: "bring", turkish: "neden olmak" },
+                { english: "brother", turkish: "erkek kardeş" },
+                { english: "brown", turkish: "kahverengi" },
+                { english: "build", turkish: "bina etmek" },
+                { english: "building", turkish: "yapma" },
+                { english: "bus", turkish: "otobüsle gitmek" },
+                { english: "business", turkish: "iş kuruluşu" },
+                { english: "busy", turkish: "işlek" },
+                { english: "but", turkish: "fakat" },
+                { english: "butter", turkish: "yağ sürmek" },
+                { english: "buy", turkish: "satın almak" },
+                { english: "by", turkish: "yakın" },
+                { english: "bye", turkish: "hoşçakal" },
+                { english: "cafe", turkish: "kafe" },
+                { english: "cake", turkish: "bar" },
+                { english: "call", turkish: "telefon etmek" },
+                { english: "camera", turkish: "fotoğraf makinesi" },
+                { english: "can", turkish: "olabilmek" },
+                { english: "cannot", turkish: "yetersizlik ya da izin vermemeyi" },
+                { english: "capital", turkish: "sermaye" },
+                { english: "car", turkish: "otomobil" },
+                { english: "card", turkish: "fişlemek" },
+                { english: "career", turkish: "kariyer" },
+                { english: "carrot", turkish: "saç" },
+                { english: "carry", turkish: "taşımak" },
+                { english: "cat", turkish: "istifra etmek" },
+                { english: "CD", turkish: "compact disk" },
+                { english: "cent", turkish: "sent" },
+                { english: "centre", turkish: "merkezde toplanmak" },
+                { english: "century", turkish: "yüzyıl" },
+                { english: "chair", turkish: "sandalye" },
+                { english: "change", turkish: "değişmek" },
+                { english: "chart", turkish: "haritaya almak" },
+                { english: "cheap", turkish: "değersiz" },
+                { english: "check", turkish: "denetlemek" },
+                { english: "cheese", turkish: "peynir kalıbı" },
+                { english: "chicken", turkish: "korkak davranmak" },
+                { english: "child", turkish: "ürün" },
+                { english: "chocolate", turkish: "çikolatalı şekerleme" },
+                { english: "choose", turkish: "ayırmak" },
+                { english: "cinema", turkish: "sinema salonu" },
+                { english: "city", turkish: "şehir" },
+                { english: "class", turkish: "saymak" },
+                { english: "classroom", turkish: "dershane" },
+                { english: "clean", turkish: "temiz" },
+                { english: "climb", turkish: "tırmanmak" },
+                { english: "clock", turkish: "ölçmek" },
+                { english: "close", turkish: "kapamak" },
+                { english: "clothes", turkish: "elbise" },
+                { english: "club", turkish: "kulüp" },
+                { english: "coat", turkish: "mont" },
+                { english: "coffee", turkish: "kahve" },
+                { english: "cold", turkish: "soğukkanlı" },
+                { english: "college", turkish: "üniversite" },
+                { english: "colour", turkish: "renk" },
+                { english: "come", turkish: "gelmek" },
+                { english: "common", turkish: "alelade" },
+                { english: "company", turkish: "bölük" },
+                { english: "compare", turkish: "mukayese etmek" },
+                { english: "complete", turkish: "tam" },
+                { english: "computer", turkish: "kompüter" },
+                { english: "concert", turkish: "konser" },
+                { english: "conversation", turkish: "muhabbet" },
+                { english: "cook", turkish: "yemek pişirmek" },
+                { english: "cooking", turkish: "mutfak" },
+                { english: "cool", turkish: "soğutmak" },
+                { english: "correct", turkish: "düzeltmek" },
+                { english: "cost", turkish: "mal olmak" },
+                { english: "could", turkish: "-abilirdi" },
+                { english: "country", turkish: "yurt" },
+                { english: "course", turkish: "kurs" },
+                { english: "cousin", turkish: "kuzen" },
+                { english: "cow", turkish: "inek" },
+                { english: "cream", turkish: "korkutmak" },
+                { english: "create", turkish: "meydana getirmek" },
+                { english: "culture", turkish: "zevk ve eleştirme yeteneklerinin" },
+                { english: "cup", turkish: "kupa" },
+                { english: "customer", turkish: "alıcı" },
+                { english: "cut", turkish: "pay" },
+                { english: "dad", turkish: "baba" },
+                { english: "dance", turkish: "dans etmek" },
+                { english: "dancer", turkish: "dansçı" },
+                { english: "dancing", turkish: "dans" },
+                { english: "dangerous", turkish: "tehlikeli" },
+                { english: "dark", turkish: "koyu" },
+                { english: "date", turkish: "randevuya çıkmak" },
+                { english: "daughter", turkish: "kız evlat" },
+                { english: "day", turkish: "zaman" },
+                { english: "dear", turkish: "sevgili" },
+                { english: "December", turkish: "aralık (ayı)" },
+                { english: "decide", turkish: "belirlemek" },
+                { english: "delicious", turkish: "lezzetli" },
+                { english: "describe", turkish: "betimlemek" },
+                { english: "description", turkish: "tasvir" },
+                { english: "design", turkish: "dizayn etmek" },
+                { english: "desk", turkish: "çalışma masası" },
+                { english: "detail", turkish: "detay" },
+                { english: "dialogue", turkish: "diyalog" },
+                { english: "dictionary", turkish: "sözlük" },
+                { english: "die", turkish: "ölmek" },
+                { english: "diet", turkish: "diyet" },
+                { english: "difference", turkish: "ayrım" },
+                { english: "different", turkish: "farklı" },
+                { english: "difficult", turkish: "çetin" },
+                { english: "dinner", turkish: "akşam yemeği" },
+                { english: "dirty", turkish: "pisletmek" },
+                { english: "discuss", turkish: "görüşmek" },
+                { english: "dish", turkish: "tabak" },
+                { english: "do", turkish: "etmek" },
+                { english: "doctor", turkish: "doktor" },
+                { english: "dog", turkish: "it" },
+                { english: "dollar", turkish: "amerikan parası" },
+                { english: "door", turkish: "kapı" },
+                { english: "down", turkish: "aşağıya doğru" },
+                { english: "downstairs", turkish: "aşağı katta" },
+                { english: "draw", turkish: "karalamak" },
+                { english: "dress", turkish: "giyinmek" },
+                { english: "drink", turkish: "içmek" },
+                { english: "drive", turkish: "sürmek" },
+                { english: "driver", turkish: "sürücü" },
+                { english: "during", turkish: "zarfında" },
+                { english: "DVD", turkish: "dvd" },
+                { english: "each", turkish: "her biri" },
+                { english: "ear", turkish: "kulak" },
+                { english: "early", turkish: "erken" },
+                { english: "east", turkish: "doğu" },
+                { english: "easy", turkish: "rahat" },
+                { english: "eat", turkish: "yemek yemek" },
+                { english: "egg", turkish: "yumurta" },
+                { english: "eight", turkish: "sekiz" },
+                { english: "eighteen", turkish: "onsekiz" },
+                { english: "eighty", turkish: "seksen" },
+                { english: "elephant", turkish: "fil" },
+                { english: "eleven", turkish: "onbir" },
+                { english: "else", turkish: "başka" },
+                { english: "email", turkish: "email göndermek" },
+                { english: "end", turkish: "sona ermek" },
+                { english: "enjoy", turkish: "tadını çıkarmak" },
+                { english: "enough", turkish: "kafi" },
+                { english: "euro", turkish: "euro" },
+                { english: "even", turkish: "düzgün" },
+                { english: "evening", turkish: "akşam" },
+                { english: "event", turkish: "olay" },
+                { english: "ever", turkish: "durmadan" },
+                { english: "every", turkish: "bütün" },
+                { english: "everybody", turkish: "dost düşman" },
+                { english: "everyone", turkish: "herkes" },
+                { english: "everything", turkish: "her şey" },
+                { english: "exam", turkish: "muayene" },
+                { english: "example", turkish: "numune" },
+                { english: "excited", turkish: "hararetli" },
+                { english: "exciting", turkish: "heyecanlı" },
+                { english: "exercise", turkish: "egzersiz" },
+                { english: "expensive", turkish: "pahalı" },
+                { english: "explain", turkish: "izah etmek" },
+                { english: "extra", turkish: "ekstra" },
+                { english: "eye", turkish: "göz" },
+                { english: "face", turkish: "yüzleşmek" },
+                { english: "fact", turkish: "gerçek durum" },
+                { english: "fall", turkish: "inmek" },
+                { english: "FALSE", turkish: "düzmece" },
+                { english: "family", turkish: "aile" },
+                { english: "famous", turkish: "ünlü" },
+                { english: "fantastic", turkish: "fantastik" },
+                { english: "far", turkish: "çok fazla" },
+                { english: "farm", turkish: "ekip biçmek" },
+                { english: "farmer", turkish: "çiftlik" },
+                { english: "fast", turkish: "hızlı" },
+                { english: "fat", turkish: "yağ" },
+                { english: "father", turkish: "papaz" },
+                { english: "favourite", turkish: "gözde" },
+                { english: "February", turkish: "şubat" },
+                { english: "feel", turkish: "sezmek" },
+                { english: "feeling", turkish: "şefkat" },
+                { english: "festival", turkish: "şenlik" },
+                { english: "few", turkish: "az" },
+                { english: "fifteen", turkish: "on beş" },
+                { english: "fifth", turkish: "beşi" },
+                { english: "fifty", turkish: "elli" },
+                { english: "fill", turkish: "kaplamak" },
+                { english: "film", turkish: "zar vb kaplamak" },
+                { english: "final", turkish: "kesin" },
+                { english: "find", turkish: "rastlamak" },
+                { english: "fine", turkish: "hoş" },
+                { english: "finish", turkish: "bitirmek" },
+                { english: "fire", turkish: "yangın" },
+                { english: "first", turkish: "ilk" },
+                { english: "fish", turkish: "avlamak" },
+                { english: "five", turkish: "iskambilde beşli" },
+                { english: "flat", turkish: "yassı" },
+                { english: "flight", turkish: "yağmur (kurşun, ok vb)" },
+                { english: "floor", turkish: "yeri kaplamak" },
+                { english: "flower", turkish: "çiçeklenmek" },
+                { english: "fly", turkish: "uçmak" },
+                { english: "follow", turkish: "izlemek" },
+                { english: "food", turkish: "besin" },
+                { english: "foot", turkish: "ayak" },
+                { english: "football", turkish: "futbol" },
+                { english: "for", turkish: "için" },
+                { english: "forget", turkish: "unutmak" },
+                { english: "form", turkish: "biçimlendirmek" },
+                { english: "forty", turkish: "kırk sayısı (40)" },
+                { english: "four", turkish: "dört" },
+                { english: "fourteen", turkish: "on dört sayısı" },
+                { english: "fourth", turkish: "dörtte bir" },
+                { english: "free", turkish: "bağımsız" },
+                { english: "Friday", turkish: "cuma" },
+                { english: "friend", turkish: "ahbap" },
+                { english: "friendly", turkish: "arkadaş canlısı" },
+                { english: "from", turkish: "itibaren" },
+                { english: "front", turkish: "yönelmek" },
+                { english: "fruit", turkish: "meyve vermek" },
+                { english: "full", turkish: "tok" },
+                { english: "fun", turkish: "eğlence" },
+                { english: "funny", turkish: "komik" },
+                { english: "future", turkish: "istikbal" },
+                { english: "game", turkish: "oyun" },
+                { english: "garden", turkish: "bahçe" },
+                { english: "geography", turkish: "coğrafya" },
+                { english: "get", turkish: "elde etmek" },
+                { english: "girl", turkish: "kız" },
+                { english: "girlfriend", turkish: "kız arkadaş" },
+                { english: "give", turkish: "vermek" },
+                { english: "glass", turkish: "kadeh" },
+                { english: "go", turkish: "hareket etmek" },
+                { english: "good", turkish: "güzel" },
+                { english: "goodbye", turkish: "güle güle" },
+                { english: "grandfather", turkish: "dede" },
+                { english: "grandmother", turkish: "babaanne" },
+                { english: "grandparent", turkish: "büyükbaba" },
+                { english: "great", turkish: "mükemmel" },
+                { english: "green", turkish: "yeşil" },
+                { english: "grey", turkish: "ağartmak" },
+                { english: "group", turkish: "grup" },
+                { english: "grow", turkish: "yetişmek" },
+                { english: "guess", turkish: "tahmin etmek" },
+                { english: "guitar", turkish: "gitarist" },
+                { english: "gym", turkish: "spor salonu" },
+                { english: "hair", turkish: "tüy" },
+                { english: "half", turkish: "yarım" },
+                { english: "hand", turkish: "el" },
+                { english: "happen", turkish: "meydana gelmek" },
+                { english: "happy", turkish: "sevinçli" },
+                { english: "hard", turkish: "çetin" },
+                { english: "hat", turkish: "şapka" },
+                { english: "hate", turkish: "nefret etmek" },
+                { english: "have", turkish: "elinde tutmak" },
+                { english: "have to", turkish: "gerekmek" },
+                { english: "he", turkish: "o" },
+                { english: "head", turkish: "kelle" },
+                { english: "health", turkish: "sağlık" },
+                { english: "healthy", turkish: "sağlığa yararlı" },
+                { english: "hear", turkish: "işitmek" },
+                { english: "hello", turkish: "merhaba" },
+                { english: "help", turkish: "yardım etmek" },
+                { english: "her", turkish: "dişil onu" },
+                { english: "here", turkish: "burda" },
+                { english: "hey", turkish: "selam" },
+                { english: "hi", turkish: "merhaba" },
+                { english: "high", turkish: "öfkelenmek" },
+                { english: "him", turkish: "(erkek) onu" },
+                { english: "his", turkish: "onunki" },
+                { english: "history", turkish: "kayıtlar" },
+                { english: "hobby", turkish: "merak" },
+                { english: "holiday", turkish: "tatil" },
+                { english: "home", turkish: "yuvasına" },
+                { english: "homework", turkish: "ödev" },
+                { english: "hope", turkish: "umut etmek" },
+                { english: "horse", turkish: "oynamak" },
+                { english: "hospital", turkish: "darüşşifa" },
+                { english: "hot", turkish: "ateşli" },
+                { english: "hotel", turkish: "otel" },
+                { english: "hour", turkish: "zaman" },
+                { english: "house", turkish: "konut" },
+                { english: "how", turkish: "yapma yöntemi" },
+                { english: "however", turkish: "birlikte" },
+                { english: "hundred", turkish: "yüzlük" },
+                { english: "hungry", turkish: "aç" },
+                { english: "husband", turkish: "eş" },
+                { english: "I", turkish: "ben" },
+                { english: "ice", turkish: "internet" },
+                { english: "ice cream", turkish: "dondurma" },
+                { english: "idea", turkish: "sanı" },
+                { english: "if", turkish: "eğer" },
+                { english: "imagine", turkish: "kafasında canlandırmak" },
+                { english: "important", turkish: "önemli" },
+                { english: "improve", turkish: "gelişmek" },
+                { english: "in", turkish: "içeri" },
+                { english: "include", turkish: "kapsamak" },
+                { english: "information", turkish: "ilmi vukuf" },
+                { english: "interest", turkish: "ilgilendirmek" },
+                { english: "interested", turkish: "ilgili" },
+                { english: "interesting", turkish: "ilgi çekici" },
+                { english: "interview", turkish: "görüşmek" },
+                { english: "into", turkish: "içine" },
+                { english: "introduce", turkish: "tanıtmak" },
+                { english: "island", turkish: "ada" },
+                { english: "it", turkish: "ona" },
+                { english: "its", turkish: "onun" },
+                { english: "jacket", turkish: "zarf" },
+                { english: "January", turkish: "ocak" },
+                { english: "jeans", turkish: "blucin" },
+                { english: "job", turkish: "görev" },
+                { english: "join", turkish: "kiraya vermek" },
+                { english: "journey", turkish: "yolculuk" },
+                { english: "juice", turkish: "meyve suyu" },
+                { english: "July", turkish: "temmuz ayı" },
+                { english: "June", turkish: "haziran" },
+                { english: "just", turkish: "sadece" },
+                { english: "keep", turkish: "tutmak" },
+                { english: "key", turkish: "anahtar" },
+                { english: "kilometre", turkish: "kilometre" },
+                { english: "kind", turkish: "çeşit" },
+                { english: "kitchen", turkish: "mutfak" },
+                { english: "know", turkish: "bilmek" },
+                { english: "land", turkish: "karaya ayak basmak" },
+                { english: "language", turkish: "lisan" },
+                { english: "large", turkish: "iri" },
+                { english: "last", turkish: "sonuncu" },
+                { english: "late", turkish: "geç" },
+                { english: "later", turkish: "sonra" },
+                { english: "laugh", turkish: "gülmek" },
+                { english: "learn", turkish: "öğrenmek" },
+                { english: "leave", turkish: "bırakmak" },
+                { english: "left", turkish: "sol" },
+                { english: "leg", turkish: "ayak (mobilya/pergel)" },
+                { english: "lesson", turkish: "ders" },
+                { english: "let", turkish: "izin vermek" },
+                { english: "letter", turkish: "harf" },
+                { english: "library", turkish: "kitaplık" },
+                { english: "lie", turkish: "uzanmak" },
+                { english: "life", turkish: "yaşam" },
+                { english: "light", turkish: "aydınlık" },
+                { english: "like", turkish: "beğenmek" },
+                { english: "line", turkish: "astarlamak" },
+                { english: "lion", turkish: "başarılı ve aranan kimse" },
+                { english: "list", turkish: "kaydetmek" },
+                { english: "listen", turkish: "kulak asmak" },
+                { english: "little", turkish: "ufak" },
+                { english: "live", turkish: "yaşamak" },
+                { english: "local", turkish: "lokal" },
+                { english: "long", turkish: "hasretini çekmek" },
+                { english: "look", turkish: "görünüş" },
+                { english: "lose", turkish: "kaybetmek" },
+                { english: "lot", turkish: "bölüştürmek" },
+                { english: "love", turkish: "sevmek" },
+                { english: "lunch", turkish: "öğle yemeği yemek" },
+                { english: "machine", turkish: "makine ile yapmak veya şekil" },
+                { english: "magazine", turkish: "fişek haznesi" },
+                { english: "main", turkish: "esas" },
+                { english: "make", turkish: "yapmak" },
+                { english: "man", turkish: "insan" },
+                { english: "many", turkish: "birçok" },
+                { english: "map", turkish: "planlamak" },
+                { english: "March", turkish: "yürüyüş (topluca)" },
+                { english: "market", turkish: "pazar" },
+                { english: "married", turkish: "evli" },
+                { english: "match", turkish: "eşleştirmek" },
+                { english: "May", turkish: "mayıs" },
+                { english: "maybe", turkish: "belki" },
+                { english: "me", turkish: "ben" },
+                { english: "meal", turkish: "yemek" },
+                { english: "mean", turkish: "demek istemek" },
+                { english: "meaning", turkish: "mana" },
+                { english: "meat", turkish: "et" },
+                { english: "meet", turkish: "karşılaşmak" },
+                { english: "meeting", turkish: "buluşma" },
+                { english: "member", turkish: "organ" },
+                { english: "menu", turkish: "mönü" },
+                { english: "message", turkish: "ileti" },
+                { english: "metre", turkish: "metre" },
+                { english: "midnight", turkish: "geceyarısı" },
+                { english: "mile", turkish: "mil" },
+                { english: "milk", turkish: "süt" },
+                { english: "million", turkish: "milyon" },
+                { english: "minute", turkish: "dakika" },
+                { english: "miss", turkish: "geçmek" },
+                { english: "mistake", turkish: "hata" },
+                { english: "model", turkish: "manken" },
+                { english: "modern", turkish: "modern" },
+                { english: "moment", turkish: "önem" },
+                { english: "Monday", turkish: "pazartesi" },
+                { english: "money", turkish: "para" },
+                { english: "month", turkish: "ay" },
+                { english: "more", turkish: "daha" },
+                { english: "morning", turkish: "sabah vakti" },
+                { english: "most", turkish: "çok" },
+                { english: "mother", turkish: "anne" },
+                { english: "mountain", turkish: "yığın" },
+                { english: "mouse", turkish: "fare avlamak" },
+                { english: "mouth", turkish: "tane tane söylemek" },
+                { english: "move", turkish: "kımıldamak" },
+                { english: "movie", turkish: "film (sinemada gösterilen)" },
+                { english: "much", turkish: "çok" },
+                { english: "mum", turkish: "maske ile oynamak" },
+                { english: "museum", turkish: "müze" },
+                { english: "music", turkish: "müzik" },
+                { english: "must", turkish: "-malı" },
+                { english: "my", turkish: "benim" },
+                { english: "name", turkish: "ad" },
+                { english: "natural", turkish: "tabii" },
+                { english: "near", turkish: "yakın" },
+                { english: "need", turkish: "ihtiyaç duymak" },
+                { english: "negative", turkish: "negatif" },
+                { english: "neighbour", turkish: "komşu" },
+                { english: "never", turkish: "hiç" },
+                { english: "new", turkish: "yeni" },
+                { english: "news", turkish: "haber" },
+                { english: "newspaper", turkish: "gazete" },
+                { english: "next", turkish: "sonraki" },
+                { english: "next to", turkish: "bitişik" },
+                { english: "nice", turkish: "güzel" },
+                { english: "night", turkish: "gece" },
+                { english: "nine", turkish: "dokuz" },
+                { english: "nineteen", turkish: "XIX" },
+                { english: "ninety", turkish: "doksan sayısı (90)" },
+                { english: "no", turkish: "hayır" },
+                { english: "no one", turkish: "hiç kimse" },
+                { english: "nobody", turkish: "hiç kimse" },
+                { english: "north", turkish: "kuzey" },
+                { english: "nose", turkish: "burun" },
+                { english: "not", turkish: "gayri" },
+                { english: "note", turkish: "not etmek" },
+                { english: "nothing", turkish: "hiç" },
+                { english: "November", turkish: "kasım" },
+                { english: "now", turkish: "şimdi" },
+                { english: "number", turkish: "numaralamak" },
+                { english: "nurse", turkish: "hemşirelik yapmak" },
+                { english: "object", turkish: "itiraz etmek" },
+                { english: "o'clock", turkish: "saat" },
+                { english: "October", turkish: "ekim" },
+                { english: "of", turkish: "karşı" },
+                { english: "off", turkish: "kapalı" },
+                { english: "office", turkish: "ofis" },
+                { english: "often", turkish: "sık sık" },
+                { english: "oh", turkish: "ey" },
+                { english: "OK", turkish: "onaylamak" },
+                { english: "old", turkish: "yaşlı" },
+                { english: "on", turkish: "üstünde" },
+                { english: "once", turkish: "bir kere" },
+                { english: "one", turkish: "tek" },
+                { english: "onion", turkish: "soğancık" },
+                { english: "online", turkish: "bağlantılı" },
+                { english: "only", turkish: "sırf" },
+                { english: "open", turkish: "açılmak" },
+                { english: "opinion", turkish: "kanaat" },
+                { english: "opposite", turkish: "zıt" },
+                { english: "or", turkish: "ya da" },
+                { english: "orange", turkish: "portakal" },
+                { english: "order", turkish: "sipariş vermek" },
+                { english: "other", turkish: "öbür" },
+                { english: "our", turkish: "bizim" },
+                { english: "out", turkish: "çıkış" },
+                { english: "outside", turkish: "dıştan" },
+                { english: "over", turkish: "bitmiş" },
+                { english: "own", turkish: "sahip olmak" },
+                { english: "page", turkish: "sayfa" },
+                { english: "paint", turkish: "boyamak" },
+                { english: "painting", turkish: "tablo" },
+                { english: "pair", turkish: "çift" },
+                { english: "paper", turkish: "kağıt" },
+                { english: "paragraph", turkish: "fıkra" },
+                { english: "parent", turkish: "ebeveynlik etmek" },
+                { english: "park", turkish: "park etmek" },
+                { english: "part", turkish: "parça" },
+                { english: "partner", turkish: "eş" },
+                { english: "party", turkish: "taraf" },
+                { english: "passport", turkish: "geçiş belgesi" },
+                { english: "past", turkish: "geçmiş" },
+                { english: "pay", turkish: "ödemek" },
+                { english: "pen", turkish: "kalem" },
+                { english: "pencil", turkish: "kalem" },
+                { english: "people", turkish: "insanlar" },
+                { english: "pepper", turkish: "biber" },
+                { english: "perfect", turkish: "kusursuz" },
+                { english: "period", turkish: "devir" },
+                { english: "person", turkish: "kişi" },
+                { english: "personal", turkish: "kişisel" },
+                { english: "phone", turkish: "telefon etmek" },
+                { english: "photo", turkish: "foto" },
+                { english: "photograph", turkish: "fotoğraflamak" },
+                { english: "phrase", turkish: "ifade etmek" },
+                { english: "piano", turkish: "piyano çalgı" },
+                { english: "picture", turkish: "resim" },
+                { english: "piece", turkish: "tane" },
+                { english: "pig", turkish: "domuz" },
+                { english: "pink", turkish: "pembe" },
+                { english: "place", turkish: "koymak" },
+                { english: "plan", turkish: "planlamak" },
+                { english: "plane", turkish: "düzlemek" },
+                { english: "plant", turkish: "dikmek" },
+                { english: "play", turkish: "oynamak" },
+                { english: "player", turkish: "oyuncu" },
+                { english: "please", turkish: "memnun etmek" },
+                { english: "point", turkish: "nokta" },
+                { english: "police", turkish: "polis" },
+                { english: "policeman", turkish: "polis" },
+                { english: "pool", turkish: "havuz" },
+                { english: "poor", turkish: "kötü" },
+                { english: "popular", turkish: "popüler" },
+                { english: "positive", turkish: "pozitif" },
+                { english: "possible", turkish: "olabilir" },
+                { english: "post", turkish: "postalamak" },
+                { english: "potato", turkish: "patates" },
+                { english: "pound", turkish: "yumruklamak" },
+                { english: "practice", turkish: "uygulamak" },
+                { english: "practise", turkish: "pratik yapmak" },
+                { english: "prefer", turkish: "tercih etmek" },
+                { english: "prepare", turkish: "hazırlamak" },
+                { english: "present", turkish: "sunmak" },
+                { english: "pretty", turkish: "şirin" },
+                { english: "price", turkish: "bedel" },
+                { english: "probably", turkish: "galiba" },
+                { english: "problem", turkish: "problem" },
+                { english: "product", turkish: "ürün" },
+                { english: "programme", turkish: "program" },
+                { english: "project", turkish: "proje" },
+                { english: "purple", turkish: "mor" },
+                { english: "put", turkish: "koymak" },
+                { english: "quarter", turkish: "çeyrek" },
+                { english: "question", turkish: "soru" },
+                { english: "quick", turkish: "süratli" },
+                { english: "quickly", turkish: "hızla" },
+                { english: "quiet", turkish: "sessizlik" },
+                { english: "quite", turkish: "epeyce" },
+                { english: "radio", turkish: "radyo" },
+                { english: "rain", turkish: "yağmur" },
+                { english: "read", turkish: "okumak" },
+                { english: "reader", turkish: "okur" },
+                { english: "reading", turkish: "okuma" },
+                { english: "ready", turkish: "hazır" },
+                { english: "real", turkish: "hakiki" },
+                { english: "really", turkish: "hakikaten" },
+                { english: "reason", turkish: "sebep" },
+                { english: "red", turkish: "al" },
+                { english: "relax", turkish: "rahatlamak" },
+                { english: "remember", turkish: "hatırlamak" },
+                { english: "repeat", turkish: "yinelemek" },
+                { english: "report", turkish: "haber vermek" },
+                { english: "restaurant", turkish: "restoran" },
+                { english: "result", turkish: "sonuç" },
+                { english: "return", turkish: "geri dönmek" },
+                { english: "rice", turkish: "çeltik" },
+                { english: "rich", turkish: "zengin" },
+                { english: "ride", turkish: "binmek" },
+                { english: "right", turkish: "haklı" },
+                { english: "river", turkish: "akış" },
+                { english: "road", turkish: "yol" },
+                { english: "room", turkish: "oda" },
+                { english: "routine", turkish: "hergünkü işler" },
+                { english: "rule", turkish: "hüküm sürmek" },
+                { english: "run", turkish: "koşmak" },
+                { english: "sad", turkish: "hüzünlü" },
+                { english: "salad", turkish: "salata" },
+                { english: "salt", turkish: "tuzlayarak" },
+                { english: "same", turkish: "eşit" },
+                { english: "sandwich", turkish: "arasına sıkıştırmak" },
+                { english: "Saturday", turkish: "cumartesi" },
+                { english: "say", turkish: "demek" },
+                { english: "school", turkish: "okul" },
+                { english: "science", turkish: "bilim" },
+                { english: "scientist", turkish: "bilim adamı" },
+                { english: "sea", turkish: "dalga" },
+                { english: "second", turkish: "ikinci" },
+                { english: "section", turkish: "kısım" },
+                { english: "see", turkish: "bakmak" },
+                { english: "sell", turkish: "satılmak" },
+                { english: "send", turkish: "yollamak" },
+                { english: "sentence", turkish: "hüküm giydirmek" },
+                { english: "September", turkish: "eylül" },
+                { english: "seven", turkish: "yedi" },
+                { english: "seventeen", turkish: "on yedi sayısı" },
+                { english: "seventy", turkish: "yetmiş" },
+                { english: "share", turkish: "pay" },
+                { english: "she", turkish: "dişi" },
+                { english: "sheep", turkish: "hayvan" },
+                { english: "shirt", turkish: "mintan" },
+                { english: "shoe", turkish: "pabuç" },
+                { english: "shop", turkish: "ele vermek" },
+                { english: "shopping", turkish: "alışveriş" },
+                { english: "short", turkish: "az" },
+                { english: "should", turkish: "-malı" },
+                { english: "show", turkish: "göstermek" },
+                { english: "shower", turkish: "sağanak" },
+                { english: "sick", turkish: "yakalatmak" },
+                { english: "similar", turkish: "eş" },
+                { english: "sing", turkish: "söylemek" },
+                { english: "singer", turkish: "şair" },
+                { english: "sister", turkish: "abla" },
+                { english: "sit", turkish: "oturmak" },
+                { english: "situation", turkish: "hal" },
+                { english: "six", turkish: "şeş" },
+                { english: "sixteen", turkish: "onaltı" },
+                { english: "sixty", turkish: "altmış" },
+                { english: "skill", turkish: "maharet" },
+                { english: "skirt", turkish: "etek" },
+                { english: "sleep", turkish: "uyumak" },
+                { english: "slow", turkish: "yavaşlatmak" },
+                { english: "small", turkish: "az" },
+                { english: "snake", turkish: "yılan" },
+                { english: "snow", turkish: "kar" },
+                { english: "so", turkish: "bu yüzden" },
+                { english: "some", turkish: "biraz" },
+                { english: "somebody", turkish: "biri" },
+                { english: "someone", turkish: "birisi" },
+                { english: "something", turkish: "bir şey" },
+                { english: "sometimes", turkish: "bazen" },
+                { english: "son", turkish: "oğul" },
+                { english: "song", turkish: "şarkı" },
+                { english: "soon", turkish: "birazdan" },
+                { english: "sorry", turkish: "üzgün" },
+                { english: "sound", turkish: "ses" },
+                { english: "soup", turkish: "çorba" },
+                { english: "south", turkish: "güney" },
+                { english: "space", turkish: "aralık" },
+                { english: "speak", turkish: "konuşmak" },
+                { english: "special", turkish: "özel" },
+                { english: "spell", turkish: "hecelemek" },
+                { english: "spelling", turkish: "yazım" },
+                { english: "spend", turkish: "geçirmek (geceyi vb)" },
+                { english: "sport", turkish: "spor" },
+                { english: "spring", turkish: "memba" },
+                { english: "stand", turkish: "(teklif) geçerli olmak" },
+                { english: "star", turkish: "yıldız" },
+                { english: "start", turkish: "başlamak" },
+                { english: "statement", turkish: "ifade" },
+                { english: "station", turkish: "terminal" },
+                { english: "stay", turkish: "kalmak" },
+                { english: "still", turkish: "durgun" },
+                { english: "stop", turkish: "durmak" },
+                { english: "story", turkish: "hikaye" },
+                { english: "street", turkish: "cadde" },
+                { english: "strong", turkish: "güçlü" },
+                { english: "student", turkish: "öğrenci" },
+                { english: "study", turkish: "incelemek" },
+                { english: "style", turkish: "biçim" },
+                { english: "subject", turkish: "ders" },
+                { english: "success", turkish: "muvaffakiyet" },
+                { english: "sugar", turkish: "şeker" },
+                { english: "summer", turkish: "yaz" },
+                { english: "sun", turkish: "güneş" },
+                { english: "Sunday", turkish: "pazar" },
+                { english: "supermarket", turkish: "süpermarket" },
+                { english: "sure", turkish: "soruşturmak" },
+                { english: "sweater", turkish: "sömüren işveren" },
+                { english: "swim", turkish: "yüzmek" },
+                { english: "swimming", turkish: "yüzme" },
+                { english: "table", turkish: "sofra" },
+                { english: "take", turkish: "götürmek" },
+                { english: "talk", turkish: "konuşmak" },
+                { english: "tall", turkish: "yüksek" },
+                { english: "taxi", turkish: "taksiyle gitmek" },
+                { english: "tea", turkish: "çeşitli bitkilerin demlenmesinden" },
+                { english: "teach", turkish: "ders vermek" },
+                { english: "teacher", turkish: "öğretmen" },
+                { english: "team", turkish: "takım" },
+                { english: "teenager", turkish: "on üç ile on dokuz yaşlar arasındaki" },
+                { english: "telephone", turkish: "telefon" },
+                { english: "television", turkish: "televizyon" },
+                { english: "tell", turkish: "haber vermek" },
+                { english: "ten", turkish: "onlu" },
+                { english: "tennis", turkish: "tenis" },
+                { english: "terrible", turkish: "berbat" },
+                { english: "test", turkish: "test" },
+                { english: "text", turkish: "metin" },
+                { english: "than", turkish: "-mektense" },
+                { english: "thank", turkish: "teşekkür" },
+                { english: "thanks", turkish: "teşekkür etmek" },
+                { english: "that", turkish: "o kadar" },
+                { english: "the", turkish: "belli" },
+                { english: "theatre", turkish: "amfi" },
+                { english: "their", turkish: "onların" },
+                { english: "them", turkish: "onları" },
+                { english: "then", turkish: "o" },
+                { english: "there", turkish: "orada" },
+                { english: "they", turkish: "onlar" },
+                { english: "thing", turkish: "olay" },
+                { english: "think", turkish: "sanmak" },
+                { english: "third", turkish: "üçüncü" },
+                { english: "thirsty", turkish: "susuz" },
+                { english: "thirteen", turkish: "onüç" },
+                { english: "thirty", turkish: "otuz sayısı (30, XXX)" },
+                { english: "this", turkish: "bu" },
+                { english: "thousand", turkish: "bin sayısı (1000, M)" },
+                { english: "three", turkish: "se" },
+                { english: "through", turkish: "yoluyla" },
+                { english: "Thursday", turkish: "perşembe" },
+                { english: "ticket", turkish: "etiket koymak" },
+                { english: "time", turkish: "kere" },
+                { english: "tired", turkish: "argın" },
+                { english: "title", turkish: "unvan" },
+                { english: "to", turkish: "karşı" },
+                { english: "today", turkish: "bugün" },
+                { english: "together", turkish: "birlikte" },
+                { english: "toilet", turkish: "hela" },
+                { english: "tomato", turkish: "domates" },
+                { english: "tomorrow", turkish: "yarın" },
+                { english: "tonight", turkish: "akşama" },
+                { english: "too", turkish: "gereğinden çok" },
+                { english: "tooth", turkish: "diş" },
+                { english: "topic", turkish: "konu" },
+                { english: "tourist", turkish: "turist" },
+                { english: "town", turkish: "şehir" },
+                { english: "traffic", turkish: "gidiş geliş" },
+                { english: "train", turkish: "eğitim vermek" },
+                { english: "travel", turkish: "gezmek" },
+                { english: "tree", turkish: "ağaç" },
+                { english: "trip", turkish: "seyahat" },
+                { english: "trousers", turkish: "pantolon" },
+                { english: "TRUE", turkish: "hakiki" },
+                { english: "try", turkish: "denemek" },
+                { english: "T-shirt", turkish: "tişört" },
+                { english: "Tuesday", turkish: "salı" },
+                { english: "turn", turkish: "dönmek" },
+                { english: "TV", turkish: "televizyon" },
+                { english: "twelve", turkish: "oniki" },
+                { english: "twenty", turkish: "yirmi" },
+                { english: "twice", turkish: "iki kez" },
+                { english: "two", turkish: "iki" },
+                { english: "type", turkish: "yazmak" },
+                { english: "umbrella", turkish: "şemsiye" },
+                { english: "uncle", turkish: "dayı" },
+                { english: "under", turkish: "altında" },
+                { english: "understand", turkish: "anlayış göstermek" },
+                { english: "university", turkish: "üniversite" },
+                { english: "until", turkish: "ila" },
+                { english: "up", turkish: "yukarı" },
+                { english: "upstairs", turkish: "üst kat" },
+                { english: "us", turkish: "biz" },
+                { english: "use", turkish: "kullanmak" },
+                { english: "useful", turkish: "faydalı" },
+                { english: "usually", turkish: "genellikle" },
+                { english: "vacation", turkish: "tatil" },
+                { english: "vegetable", turkish: "sebze" },
+                { english: "very", turkish: "çok" },
+                { english: "video", turkish: "video terminal" },
+                { english: "village", turkish: "köy" },
+                { english: "visit", turkish: "ziyaret etmek" },
+                { english: "visitor", turkish: "ziyaretçi" },
+                { english: "wait", turkish: "beklemek" },
+                { english: "waiter", turkish: "garson" },
+                { english: "wake", turkish: "canlanmak" },
+                { english: "walk", turkish: "dolaşmak" },
+                { english: "wall", turkish: "duvar" },
+                { english: "want", turkish: "istek" },
+                { english: "warm", turkish: "ısınmak" },
+                { english: "wash", turkish: "yıkanmak" },
+                { english: "watch", turkish: "seyretmek" },
+                { english: "water", turkish: "su" },
+                { english: "way", turkish: "tarz" },
+                { english: "we", turkish: "biz" },
+                { english: "wear", turkish: "aşındırmak" },
+                { english: "weather", turkish: "yalpalamak" },
+                { english: "website", turkish: "internet sitesi" },
+                { english: "Wednesday", turkish: "çarşamba" },
+                { english: "week", turkish: "hafta" },
+                { english: "weekend", turkish: "hafta sonunu geçirmek" },
+                { english: "welcome", turkish: "hoş karşılamak" },
+                { english: "well", turkish: "kuyu" },
+                { english: "west", turkish: "batı" },
+                { english: "what", turkish: "ne" },
+                { english: "when", turkish: "zaman" },
+                { english: "where", turkish: "nereye" },
+                { english: "which", turkish: "hangi" },
+                { english: "white", turkish: "ak" },
+                { english: "who", turkish: "kim" },
+                { english: "why", turkish: "niçin" },
+                { english: "wife", turkish: "hanım" },
+                { english: "will", turkish: "vasiyet" },
+                { english: "win", turkish: "kazanmak" },
+                { english: "window", turkish: "pencere" },
+                { english: "wine", turkish: "sunmak" },
+                { english: "winter", turkish: "kışlık" },
+                { english: "with", turkish: "-lı" },
+                { english: "without", turkish: "dıştan" },
+                { english: "woman", turkish: "kadın" },
+                { english: "wonderful", turkish: "harikulade" },
+                { english: "word", turkish: "laf" },
+                { english: "work", turkish: "çalışmak" },
+                { english: "worker", turkish: "amele" },
+                { english: "world", turkish: "evren" },
+                { english: "would", turkish: "-çekti" },
+                { english: "write", turkish: "kaydetmek" },
+                { english: "writer", turkish: "muharrir" },
+                { english: "writing", turkish: "yazım" },
+                { english: "wrong", turkish: "yanlış" },
+                { english: "yeah", turkish: "tamam" },
+                { english: "year", turkish: "ihtiyarlık" },
+                { english: "yellow", turkish: "sarartmak" },
+                { english: "yes", turkish: "evet" },
+                { english: "yesterday", turkish: "dün" },
+                { english: "you", turkish: "siz" },
+                { english: "young", turkish: "genç" },
+                { english: "your", turkish: "senin" },
+                { english: "yourself", turkish: "kendiniz" }
+            ]
+        };
+
+        let gameState = {
+            mode: 'tr-en',
+            difficulty: 'easy',
+            category: 'all',
+            currentWord: null,
+            options: [],
+            correctCount: 0,
+            wrongCount: 0,
+            streak: 0,
+            maxStreak: 0,
+            score: 0, // Skor için eklendi
+            answered: false,
+            soundEnabled: true,
+            currentQuestion: 1,
+            totalQuestions: 10,
+            timer: 30,
+            timerInterval: null,
+            usedWords: []
+        };
+        
+        function getAllWords() {
+            if (gameState.category === 'all') {
+                return Object.values(wordDatabase).flat();
+            }
+            return wordDatabase[gameState.category] || [];
+        }
+
+        function shuffle(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function playSound(type) {
+            if (!gameState.soundEnabled || !audioCtx) return;
+            
+            // Mevcut context'i kullan
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            if (type === 'correct') {
+                oscillator.frequency.value = 800;
+                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+                oscillator.start(audioCtx.currentTime);
+                oscillator.stop(audioCtx.currentTime + 0.5);
+            } else if (type === 'wrong') {
+                oscillator.frequency.value = 200;
+                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                oscillator.start(audioCtx.currentTime);
+                oscillator.stop(audioCtx.currentTime + 0.3);
+            }
+        }
+
+        function showAchievement(text) {
+            const toast = document.getElementById('achievementToast');
+            document.getElementById('achievementText').textContent = text;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
+        function generateQuestion() {
+            gameState.answered = false;
+            document.getElementById('feedback').classList.add('hidden');
+            document.getElementById('hintBtn').style.display = 'block';
+            
+            clearInterval(gameState.timerInterval);
+            gameState.timer = 30;
+            startTimer();
+            
+            const allWords = getAllWords();
+            
+            if (allWords.length === 0) {
+                 document.getElementById('questionWord').textContent = "Bu kategoride kelime yok!";
+                 document.getElementById('optionsContainer').innerHTML = '';
+                 return;
+            }
+            
+            const availableWords = allWords.filter(w => !gameState.usedWords.includes(w));
+            
+            if (availableWords.length === 0) {
+                gameState.usedWords = [];
+            }
+            
+            const shuffledWords = shuffle(availableWords.length > 0 ? availableWords : allWords);
+            gameState.currentWord = shuffledWords[0];
+            gameState.usedWords.push(gameState.currentWord);
+            
+            let currentMode = gameState.mode;
+            if (gameState.mode === 'mixed') {
+                currentMode = Math.random() > 0.5 ? 'tr-en' : 'en-tr';
+            }
+            
+            let question, correctAnswer;
+            if (currentMode === 'tr-en') {
+                question = gameState.currentWord.turkish;
+                correctAnswer = gameState.currentWord.english;
+                document.getElementById('questionLabel').textContent = 'Aşağıdaki kelimenin İngilizce karşılığını seçin:';
+                document.getElementById('modeDisplay').textContent = 'Türkçe → İngilizce';
+            } else {
+                question = gameState.currentWord.english;
+                correctAnswer = gameState.currentWord.turkish;
+                document.getElementById('questionLabel').textContent = 'Select the Turkish equivalent of the word below:';
+                document.getElementById('modeDisplay').textContent = 'English → Türkçe';
+            }
+            
+            const optionsCount = gameState.difficulty === 'easy' ? 4 : gameState.difficulty === 'medium' ? 6 : 8;
+            gameState.options = [correctAnswer];
+            
+            const otherWords = shuffle(allWords.filter(w => w.english !== gameState.currentWord.english && w.turkish !== gameState.currentWord.turkish))
+                                .slice(0, optionsCount - 1);
+            
+            otherWords.forEach(w => {
+                gameState.options.push(currentMode === 'tr-en' ? w.english : w.turkish);
+            });
+
+            while (gameState.options.length < optionsCount) {
+                const randomWord = shuffledWords[Math.floor(Math.random() * shuffledWords.length)];
+                const randomOption = currentMode === 'tr-en' ? randomWord.english : randomWord.turkish;
+                if (!gameState.options.includes(randomOption)) {
+                     gameState.options.push(randomOption);
+                }
+                if (gameState.options.length >= shuffledWords.length || gameState.options.length >= optionsCount) break;
+            }
+
+            gameState.options = shuffle(gameState.options);
+
+            document.getElementById('questionWord').textContent = question;
+            
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+            container.className = `grid gap-4 mb-6 ${optionsCount <= 4 ? 'grid-cols-2' : 'grid-cols-2 md:grid-cols-3'}`;
+            
+            gameState.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-lg btn-outline hover:btn-primary transition-all duration-200';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(option, btn);
+                container.appendChild(btn);
+            });
+            
+            updateProgress();
+        }
+
+        function startTimer() {
+            document.getElementById('timer').textContent = gameState.timer;
+            gameState.timerInterval = setInterval(() => {
+                gameState.timer--;
+                document.getElementById('timer').textContent = gameState.timer;
+                
+                if (gameState.timer <= 0) {
+                    clearInterval(gameState.timerInterval);
+                    if (!gameState.answered) {
+                        skipQuestion();
+                    }
+                }
+            }, 1000);
+        }
+
+        function handleFailure(isSkip = false) {
+            if (gameState.answered) return;
+            gameState.answered = true;
+            clearInterval(gameState.timerInterval);
+
+            gameState.wrongCount++;
+            gameState.streak = 0;
+
+            const feedback = document.getElementById('feedback');
+            const currentMode = document.getElementById('modeDisplay').textContent.includes('English') ? 'en-tr' : 'tr-en';
+            const correctAnswer = currentMode === 'tr-en' ? gameState.currentWord.english : gameState.currentWord.turkish;
+
+            if (isSkip) {
+                feedback.innerHTML = `<div class="alert alert-warning"><span>⏭️ Geçildi! Doğru cevap: <strong>${correctAnswer}</strong></span></div>`;
+            } else {
+                playSound('wrong');
+                feedback.innerHTML = `<div class="alert alert-error"><span>❌ Yanlış! Doğru cevap: <strong>${correctAnswer}</strong></span></div>`;
+            }
+            feedback.classList.remove('hidden');
+
+            const allButtons = document.querySelectorAll('#optionsContainer button');
+            allButtons.forEach(button => {
+                button.disabled = true;
+                if (button.textContent === correctAnswer) {
+                    button.classList.remove('btn-outline');
+                    button.classList.add('btn-success');
+                }
+            });
+
+            updateStats();
+            gameState.currentQuestion++;
+
+            if (gameState.currentQuestion > gameState.totalQuestions) {
+                setTimeout(showResults, 2000);
+            }
+        }
+
+        function checkAnswer(selected, btn) {
+            if (gameState.answered) return;
+
+            const currentMode = document.getElementById('modeDisplay').textContent.includes('English') ? 'en-tr' : 'tr-en';
+            const correctAnswer = currentMode === 'tr-en' ? gameState.currentWord.english : gameState.currentWord.turkish;
+
+            if (selected === correctAnswer) {
+                gameState.answered = true;
+                clearInterval(gameState.timerInterval);
+
+                gameState.correctCount++;
+                gameState.streak++;
+                
+                if (gameState.streak > gameState.maxStreak) {
+                    gameState.maxStreak = gameState.streak;
+                }
+                
+                const bonusPoints = Math.floor(gameState.timer / 3);
+                const totalPoints = 10 + bonusPoints;
+                gameState.score += totalPoints; 
+                
+                playSound('correct');
+                const feedback = document.getElementById('feedback');
+                feedback.innerHTML = `<div class="alert alert-success"><span>🎉 Mükemmel! +${totalPoints} puan (Hız bonusu: +${bonusPoints})</span></div>`;
+                feedback.classList.remove('hidden');
+
+                if (gameState.streak === 5) {
+                    showAchievement('🔥 5 Seri! Harikasın!');
+                } else if (gameState.streak === 10) {
+                    showAchievement('⭐ 10 Seri! İnanılmaz!');
+                }
+
+                const allButtons = document.querySelectorAll('#optionsContainer button');
+                allButtons.forEach(button => {
+                    button.disabled = true;
+                    if (button.textContent === correctAnswer) {
+                        button.classList.remove('btn-outline');
+                        button.classList.add('btn-success');
+                    }
+                });
+                
+                updateStats();
+                gameState.currentQuestion++;
+                if (gameState.currentQuestion > gameState.totalQuestions) {
+                    setTimeout(showResults, 2000);
+                }
+
+            } else {
+                handleFailure(false);
+                btn.classList.remove('btn-outline');
+                btn.classList.add('btn-error');
+            }
+        }
+
+        function skipQuestion() {
+            handleFailure(true);
+        }
+
+        function showHint() {
+            if (gameState.answered) return;
+            
+            const currentMode = document.getElementById('modeDisplay').textContent.includes('English') ? 'en-tr' : 'tr-en';
+            const correctAnswer = currentMode === 'tr-en' ? gameState.currentWord.english : gameState.currentWord.turkish;
+            
+            const allButtons = document.querySelectorAll('#optionsContainer button:not(:disabled)');
+            let wrongButtons = [];
+            allButtons.forEach(button => {
+                if (button.textContent !== correctAnswer) {
+                    wrongButtons.push(button);
+                }
+            });
+            
+            let removeCount = 0;
+            const optionsCount = gameState.options.length;
+            if (optionsCount === 4) removeCount = 1;
+            if (optionsCount === 6) removeCount = 2;
+            if (optionsCount === 8) removeCount = 3;
+            
+            wrongButtons = shuffle(wrongButtons);
+            
+            for(let i = 0; i < removeCount && i < wrongButtons.length; i++) {
+                wrongButtons[i].disabled = true;
+                wrongButtons[i].classList.add('btn-disabled', 'opacity-30');
+            }
+            
+            gameState.score = Math.max(0, gameState.score - 5);
+            updateStats();
+            
+            document.getElementById('hintBtn').style.display = 'none';
+        }
+
+        function showResults() {
+            const modal = document.createElement('dialog');
+            modal.className = 'modal modal-open';
+            
+            const totalPlayed = gameState.correctCount + gameState.wrongCount;
+            const successRate = totalPlayed > 0 ? 
+                Math.round((gameState.correctCount / totalPlayed) * 100) : 0;
+            
+            let resultMessage = '';
+            let resultEmoji = '';
+            
+            if (successRate >= 90) {
+                resultMessage = 'Mükemmel!';
+                resultEmoji = '🏆';
+            } else if (successRate >= 70) {
+                resultMessage = 'Harika!';
+                resultEmoji = '⭐';
+            } else if (successRate >= 50) {
+                resultMessage = 'İyi!';
+                resultEmoji = '👍';
+            } else {
+                resultMessage = 'Pratik yapmalısın!';
+                resultEmoji = '💪';
+            }
+            
+            modal.innerHTML = `
+                <div class="modal-box max-w-2xl">
+                    <h3 class="font-bold text-3xl text-center mb-6">${resultEmoji} ${resultMessage}</h3>
+                    
+                    <div class="stats stats-vertical lg:stats-horizontal shadow w-full mb-6">
+                        <div class="stat">
+                            <div class="stat-title">Toplam Skor</div>
+                            <div class="stat-value text-secondary">${gameState.score}</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-title">Doğru</div>
+                            <div class="stat-value text-success">${gameState.correctCount}</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-title">Yanlış</div>
+                            <div class="stat-value text-error">${gameState.wrongCount}</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-title">Başarı</div>
+                            <div class="stat-value text-primary">${successRate}%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>En uzun seriniz: <strong>${gameState.maxStreak}</strong> ardışık doğru!</span>
+                    </div>
+                    
+                    <div class="modal-action">
+                        <button class="btn btn-primary" onclick="restartGame()">🔄 Tekrar Oyna</button>
+                        <button class="btn btn-outline" onclick="location.reload()">🏠 Ana Sayfa</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        function restartGame() {
+            gameState.correctCount = 0;
+            gameState.wrongCount = 0;
+            gameState.streak = 0;
+            gameState.score = 0;
+            gameState.currentQuestion = 1;
+            gameState.usedWords = [];
+            
+            document.querySelectorAll('.modal').forEach(m => m.remove());
+            updateStats();
+            generateQuestion();
+        }
+
+        function updateStats() {
+            document.getElementById('correct').textContent = gameState.correctCount;
+            document.getElementById('wrong').textContent = gameState.wrongCount;
+            document.getElementById('score').textContent = gameState.score;
+            document.getElementById('streak').textContent = gameState.streak;
+            
+            const total = gameState.correctCount + gameState.wrongCount;
+            const successRate = total > 0 ? Math.round((gameState.correctCount / total) * 100) : 0;
+            
+            document.getElementById('successRate').value = successRate;
+            document.getElementById('successPercent').textContent = successRate + '%';
+        }
+
+        function updateProgress() {
+            document.getElementById('currentQ').textContent = gameState.currentQuestion;
+            document.getElementById('totalQ').textContent = gameState.totalQuestions;
+            
+            const progress = (gameState.currentQuestion / gameState.totalQuestions) * 100;
+            document.getElementById('questionProgress').value = progress;
+        }
+
+        function nextQuestion() {
+            if (!gameState.answered) return;
+            if (gameState.currentQuestion > gameState.totalQuestions) {
+                showResults();
+            } else {
+                generateQuestion();
+            }
+        }
+
+        function changeMo() {
+            gameState.mode = document.getElementById('gameMode').value;
+            restartGame();
+        }
+
+        function changeDifficulty() {
+            gameState.difficulty = document.getElementById('difficulty').value;
+            restartGame();
+        }
+
+        function changeCategory() {
+            gameState.category = document.getElementById('category').value;
+            restartGame();
+        }
+
+        function resetStats() {
+            if (confirm('Tüm istatistikler ve ilerleme sıfırlanacak. Emin misiniz?')) {
+                gameState.correctCount = 0;
+                gameState.wrongCount = 0;
+                gameState.streak = 0;
+                gameState.maxStreak = 0;
+                gameState.score = 0;
+                gameState.currentQuestion = 1;
+                gameState.usedWords = [];
+                updateStats();
+                generateQuestion();
+            }
+        }
+
+        function changeTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+        }
+
+        function showSettings() {
+            document.getElementById('totalWords').textContent = Object.values(wordDatabase).flat().length;
+            document.getElementById('settingsModal').showModal();
+        }
+
+        document.getElementById('soundToggle').addEventListener('change', (e) => {
+            gameState.soundEnabled = e.target.checked;
+        });
+
+        // Initialize
+        // Sayfa yüklendiğinde A1 kategorisini varsayılan yap
+        document.getElementById('category').value = 'A1';
+        gameState.category = 'A1';
+        
+        generateQuestion();
+        document.getElementById('totalWords').textContent = Object.values(wordDatabase).flat().length;
+    </script>
+</body>
+</html>
